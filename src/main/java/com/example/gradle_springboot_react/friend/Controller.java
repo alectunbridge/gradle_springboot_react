@@ -1,9 +1,8 @@
 package com.example.gradle_springboot_react.friend;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -20,5 +19,11 @@ public class Controller {
     @GetMapping
     public Iterable<Friend> list() {
         return friendRepository.findAll();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Friend create(@RequestParam final String name) {
+        return friendRepository.save(new Friend(name));
     }
 }
